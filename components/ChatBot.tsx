@@ -41,16 +41,11 @@ export default function ChatBot() {
       </div>
       <div className="bg-background border-t px-6 py-4 flex items-center gap-4">
         <div className="flex flex-wrap gap-2">
-          {Object.entries(Model).map(([key, value]) => {
-            if (value === null || value === undefined) {
-              throw new Error(`Model value for ${key} is null or undefined`);
-            }
-            return (
-              <Button key={key} onClick={() => setModel(value as Model)}>
-                {key}
-              </Button>
-            );
-          })}
+          {Object.entries(Model).map(([key, value]) => (
+            <Button key={key} onClick={() => setModel(value as Model)}>
+              {value}
+            </Button>
+          ))}
         </div>
         <form onSubmit={handleSubmit} className="w-full flex flex-row justify-between gap-4">
           <Input id="message" placeholder="Type your message..." value={inputValue} onChange={handleInputChange} className="flex-1" autoComplete="off" />
