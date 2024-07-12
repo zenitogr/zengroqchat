@@ -9,7 +9,7 @@ import ModelList from '@/lib/data/model-list';
 export default function ChatBot() {
   const [conversation, setConversation] = useState<Message[]>([{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
   const [inputValue, setInputValue] = useState('');
-  const [model, setModel] = useState<string>('gemma2-9b-it');
+  const [model, setModel] = useState<string>('gemma-7b-it');
   
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
