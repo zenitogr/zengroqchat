@@ -8,11 +8,11 @@ import { SendIcon } from 'lucide-react';
 export default function ChatBot() {
   const [conversation, setConversation] = useState<Message[]>([{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
   const [inputValue, setInputValue] = useState('');
-  const [model, setModel] = useState<Model>(Model.gemma2_9b_it);
+  const [model, setModel] = useState<`${Model}`>(Model.gemma2_9b_it);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (inputValue.trim() !== '') {
-      const {messages} = await getGroqResponse(model,[...conversation, { content: inputValue, role: 'user' }]);
+      const {messages} = await getGroqResponse(model as Model,[...conversation, { content: inputValue, role: 'user' }]);
       setConversation(messages);
       setInputValue('');
     }
