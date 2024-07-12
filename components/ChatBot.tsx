@@ -9,7 +9,7 @@ export default function ChatBot() {
   const [conversation, setConversation] = useState<Message[]>([{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
   const [inputValue, setInputValue] = useState('');
   const [model, setModel] = useState<`${Model}`>(Model.gemma2_9b_it);
-  const enumKeys = Object.keys(Model) as Array<keyof typeof Model>;
+  const enumValues = Object.values(Model);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (inputValue.trim() !== '') {
@@ -42,13 +42,11 @@ export default function ChatBot() {
       </div>
       <div className="bg-background border-t px-6 py-4 flex items-center gap-4">
         <div className="flex flex-wrap gap-2">
-          {enumKeys.map(
-              (key, index) => (
-                <div key={index}>
-                  <Button onClick={() => setModel(key as Model)}>
-                    {key}
-                    </Button>
-              </div>
+          {enumValues.map(
+              (key) => (
+                <div key={key}>
+                  {key}
+                </div>
               )
             )
           }
