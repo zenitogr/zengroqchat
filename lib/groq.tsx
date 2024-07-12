@@ -7,10 +7,10 @@ const groq = createOpenAI({
     apiKey: process.env.GROQ_API_KEY,
   });
 
-export default async function getGroqResponse(userMessage: string) {
+export default async function getGroqResponse(messages: { content: string, role: 'assistant' | 'user' }[]) {
   const { text } = await generateText({
     model: groq('gemma2-9b-it'),
-    prompt: userMessage
+    messages: messages
   });
 
   return text;

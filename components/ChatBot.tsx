@@ -6,14 +6,15 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { SendIcon } from 'lucide-react';
 export default function ChatBot() {
-  const [messages, setMessages] = useState<{ message: string, sender: 'ai' | 'user' }[]>([]);
+  const [messages, setMessages] = useState<{ content: string, role: 'assistant' | 'user' }[]>([]);
   const [inputValue, setInputValue] = useState('');
-
+    setMessages([...messages,{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (inputValue.trim() !== '') {
-      const response = await getGroqResponse(inputValue);
-      setMessages([...messages, { message: inputValue, sender: 'user' }, { message: response, sender: 'ai' }]);
+      setMessages([...messages, { content: inputValue, role: 'user' }]);
+      const response = await getGroqResponse(messages);
+      setMessages([...messages, { content: response, role: 'assistant' }]);
       setInputValue('');
     }
   };
@@ -27,13 +28,13 @@ export default function ChatBot() {
       <div className="flex-1 overflow-y-auto p-6 bg-muted/40">
         <div className="space-y-4">
           {messages.map((message, index) => (
-            <div key={index} className={`flex items-start gap-4 ${message.sender === 'user' ? 'justify-end' : ''}`}>
+            <div key={index} className={`flex items-start gap-4 ${message.role === 'user' ? 'justify-end' : ''}`}>
               <Avatar>
                 <AvatarImage src="/placeholder-user.jpg" />
-                <AvatarFallback>{message.sender === 'user' ? 'JD' : 'VA'}</AvatarFallback>
+                <AvatarFallback>{message.role === 'user' ? 'JD' : 'VA'}</AvatarFallback>
               </Avatar>
-              <div className={`bg-${message.sender === 'user' ? 'card' : 'primary'}-text-foreground rounded-lg p-4 max-w-[75%]`}>
-                <p>{message.message}</p>
+              <div className={`bg-${message.role === 'user' ? 'card' : 'primary'}-text-foreground rounded-lg p-4 max-w-[75%]`}>
+                <p>{message.content}</p>
               </div>
             </div>
           ))}
