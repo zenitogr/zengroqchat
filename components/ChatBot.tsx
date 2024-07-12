@@ -45,7 +45,6 @@ export default function ChatBot() {
             <Button
               key={key}
               onClick={() => setModel(key as Model)}
-              variant={model === key ? 'default' : 'outline'}
             >
               {key}
             </Button>
