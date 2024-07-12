@@ -40,7 +40,7 @@ export default function ChatBot() {
         </div>
       </div>
       <div className="bg-background border-t px-6 py-4 flex items-center gap-4">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="w-full flex flex-row justify-between">
           <Input id="message" placeholder="Type your message..." value={inputValue} onChange={handleInputChange} className="flex-1" autoComplete="off" />
           <Button type="submit" size="icon">
             <SendIcon className="w-4 h-4" />
