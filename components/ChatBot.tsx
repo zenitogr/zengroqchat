@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import  getGroqResponse  from '@/lib/groq';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Input } from './ui/input';
@@ -8,7 +8,9 @@ import { SendIcon } from 'lucide-react';
 export default function ChatBot() {
   const [messages, setMessages] = useState<{ content: string, role: 'assistant' | 'user' }[]>([]);
   const [inputValue, setInputValue] = useState('');
-    setMessages([...messages,{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
+    useEffect(() => {
+        setMessages([...messages,{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
+    }, []);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (inputValue.trim() !== '') {
