@@ -41,9 +41,13 @@ export default function ChatBot() {
       </div>
       <div className="bg-background border-t px-6 py-4 flex items-center gap-4">
         <div className="flex flex-wrap gap-2">
-          {Object.entries(Model).map(([key, value]) => (
-            <Button key={key} onClick={() => setModel(value as Model)}>
-              {value}
+          {Object.keys(Model).map((key) => (
+            <Button
+              key={key}
+              onClick={() => setModel(key as Model)}
+              variant={model === key ? 'default' : 'outline'}
+            >
+              {key}
             </Button>
           ))}
         </div>
