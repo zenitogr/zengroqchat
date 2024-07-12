@@ -6,13 +6,6 @@ export interface Message {
   content: string;
 }
 
-export const models =  [
-  {model: 'gemma2-9b-it'},
-  {model :  'gemma-7b-it'},
-  {model :'llama3-8b-8192'},
-  {model : 'llama3-70b-8192'},
-  {model : 'mixtral-8x7b-32768'}
-]
 const groq = createOpenAI({
     baseURL: 'https://api.groq.com/openai/v1',
     apiKey: process.env.GROQ_API_KEY,

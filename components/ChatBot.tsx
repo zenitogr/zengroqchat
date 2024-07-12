@@ -1,10 +1,11 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import  {getGroqResponse, Message, models } from '@/lib/groq';
+import  {getGroqResponse, Message } from '@/lib/groq';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { SendIcon } from 'lucide-react';
+import ModelList from '@/lib/data/model-list';
 export default function ChatBot() {
   const [conversation, setConversation] = useState<Message[]>([{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
   const [inputValue, setInputValue] = useState('');
@@ -41,16 +42,7 @@ export default function ChatBot() {
         </div>
       </div>
       <div className="bg-background border-t px-6 py-4 flex items-center gap-4">
-        <div className="flex flex-wrap gap-2">
-          {models.map(
-              (entry,index) => (
-                <div key={index}>
-                   {entry.model}
-                </div>
-              )
-            )
-          }
-        </div>
+        <ModelList />
         <form onSubmit={handleSubmit} className="w-full flex flex-row justify-between gap-4">
           <Input id="message" placeholder="Type your message..." value={inputValue} onChange={handleInputChange} className="flex-1" autoComplete="off" />
           <Button type="submit" size="icon">
