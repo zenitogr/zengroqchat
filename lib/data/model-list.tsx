@@ -1,4 +1,4 @@
-
+import {Button} from '@/components/ui/button';
   export const models =  [
     {
         id : 1,
@@ -23,9 +23,9 @@
     }
   ];
   
-  export default function ModelList() {
+  export default function ModelList(currentModel: string, setCurrentModel: (model: string) => void) {
     const modelDivs = models.map(model =>
-      <div key = {model.id}>{model.model}</div>
+      <Button key = {model.id} onClick={() => setCurrentModel(model.model)}>{model.model}</Button>
     );
     return <div className="flex flex-wrap gap-2">{modelDivs}</div>;
   }
