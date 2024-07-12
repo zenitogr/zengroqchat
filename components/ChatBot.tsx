@@ -26,9 +26,9 @@ export default function ChatBot() {
 
   return (
     <div className="flex flex-col h-screen">
-      <div className="flex-1 overflow-y-auto p-6 bg-muted/40">
-        <div className="space-y-4">
-          {conversation.map((message, index) => (
+      
+        <div className="space-y-4 overflow-auto flex flex-col-reverse bg-muted/40 px-4 mt-24 mb-32 " style={{overflowAnchor: 'auto'}}>
+          {conversation.toReversed().map((message, index) => (
             <div key={index} className={`flex items-start gap-4 ${message.role === 'user' ? 'justify-end' : ''}`}>
               <Avatar>
                 <AvatarImage src="/placeholder-user.jpg" />
@@ -40,8 +40,8 @@ export default function ChatBot() {
             </div>
           ))}
         </div>
-      </div>
-      <div className="bg-background border-t px-6 py-2 flex gap-4 sticky">
+      
+      <div className="bg-background border-t px-6 py-2 flex gap-4 fixed bottom-0 inset-x-0">
         <div className="flex flex-col w-full items-center gap-2">
           <ModelList currentModel={model} setModel={setModel}/>
           <form onSubmit={handleSubmit} className="w-full flex flex-row justify-between gap-4">
