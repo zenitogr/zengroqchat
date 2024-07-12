@@ -23,9 +23,15 @@ import {Button} from '@/components/ui/button';
     }
   ];
   
-  export default function ModelList(currentModel: string, setCurrentModel: (model: string) => void) {
+  export default function ModelList({currentModel,setModel}: {currentModel:string,setModel: (model: string) => void}) {
     const modelDivs = models.map(model =>
-      <Button key = {model.id} onClick={() => setCurrentModel(model.model)}>{model.model}</Button>
+      <Button
+        key={model.id}
+        onClick={() => setModel(model.model)}
+        className={currentModel === model.model ? 'bg-primary text-primary-foreground' : 'bg-background text-foreground'}
+      >
+        {model.model}
+      </Button>
     );
     return <div className="flex flex-wrap gap-2">{modelDivs}</div>;
   }

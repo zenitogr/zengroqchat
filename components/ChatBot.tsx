@@ -9,7 +9,7 @@ import ModelList from '@/lib/data/model-list';
 export default function ChatBot() {
   const [conversation, setConversation] = useState<Message[]>([{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
   const [inputValue, setInputValue] = useState('');
-  const [model, setModel] = useState<string>('gemma2_9b_it');
+  const [model, setModel] = useState<string>('gemma2-9b-it');
   
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -41,15 +41,17 @@ export default function ChatBot() {
           ))}
         </div>
       </div>
-      <div className="bg-background border-t px-6 py-4 flex items-center gap-4">
-        <ModelList currentModel={model} setCurrentModel={setModel}/>
-        <form onSubmit={handleSubmit} className="w-full flex flex-row justify-between gap-4">
-          <Input id="message" placeholder="Type your message..." value={inputValue} onChange={handleInputChange} className="flex-1" autoComplete="off" />
-          <Button type="submit" size="icon">
-            <SendIcon className="w-4 h-4" />
-            <span className="sr-only">Send</span>
-          </Button>
-        </form>
+      <div className="bg-background border-t px-6 py-4 flex gap-4">
+        <div className="flex flex-col w-full items-center">
+          <ModelList currentModel={model} setModel={setModel}/>
+          <form onSubmit={handleSubmit} className="w-full flex flex-row justify-between gap-4">
+            <Input id="message" placeholder="Type your message..." value={inputValue} onChange={handleInputChange} className="flex-1" autoComplete="off" />
+            <Button type="submit" size="icon">
+              <SendIcon className="w-4 h-4" />
+              <span className="sr-only">Send</span>
+            </Button>
+          </form>
+        </div>
       </div>
     </div>
   );
