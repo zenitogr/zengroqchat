@@ -1,17 +1,29 @@
 "use server"
 import { createOpenAI } from '@ai-sdk/openai'
 import { generateText } from 'ai'
-
+export interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+}
 const groq = createOpenAI({
     baseURL: 'https://api.groq.com/openai/v1',
     apiKey: process.env.GROQ_API_KEY,
   });
 
-export default async function getGroqResponse(messages: { content: string, role: 'assistant' | 'user' }[]) {
+export async function getGroqResponse(messages: Message[]) {
   const { text } = await generateText({
     model: groq('gemma2-9b-it'),
+    system: "You are a friendly assistant!",
     messages: messages
   });
 
-  return text;
+  return {
+    messages: [
+      ...messages,
+      {
+        role: 'assistant' as const,
+        content: text,
+      },
+    ],
+  };
 }

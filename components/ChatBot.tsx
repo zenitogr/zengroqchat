@@ -1,19 +1,18 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import  getGroqResponse  from '@/lib/groq';
+import  {getGroqResponse, Message } from '@/lib/groq';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { SendIcon } from 'lucide-react';
 export default function ChatBot() {
-  const [messages, setMessages] = useState<{ content: string, role: 'assistant' | 'user' }[]>([{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
+  const [conversation, setConversation] = useState<Message[]>([{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
   const [inputValue, setInputValue] = useState('');
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (inputValue.trim() !== '') {
-      setMessages([...messages, { content: inputValue, role: 'user' }]);
-      const response = await getGroqResponse(messages);
-      setMessages([...messages, { content: response, role: 'assistant' }]);
+      const {messages} = await getGroqResponse([...conversation, { content: inputValue, role: 'user' }]);
+      setConversation(messages);
       setInputValue('');
     }
   };
@@ -26,7 +25,7 @@ export default function ChatBot() {
     <div className="flex flex-col h-screen">
       <div className="flex-1 overflow-y-auto p-6 bg-muted/40">
         <div className="space-y-4">
-          {messages.map((message, index) => (
+          {conversation.map((message, index) => (
             <div key={index} className={`flex items-start gap-4 ${message.role === 'user' ? 'justify-end' : ''}`}>
               <Avatar>
                 <AvatarImage src="/placeholder-user.jpg" />
