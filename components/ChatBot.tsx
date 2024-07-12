@@ -44,7 +44,11 @@ export default function ChatBot() {
         <div className="flex flex-wrap gap-2">
           {enumKeys.map(
               (key) => (
-              <button key={key} onClick={() => setModel(key as Model)}>{key}</button>
+                <div key={key}>
+                  <Button onClick={() => setModel(key as Model)}>
+                    {key}
+                    </Button>
+              </div>
               )
             )
           }
