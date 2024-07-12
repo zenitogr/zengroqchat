@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import  {getGroqResponse, Message, Model } from '@/lib/groq';
+import  {getGroqResponse, Message, models } from '@/lib/groq';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Input } from './ui/input';
 import { Button } from './ui/button';
@@ -8,12 +8,12 @@ import { SendIcon } from 'lucide-react';
 export default function ChatBot() {
   const [conversation, setConversation] = useState<Message[]>([{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
   const [inputValue, setInputValue] = useState('');
-  const [model, setModel] = useState<`${Model}`>(Model.gemma2_9b_it);
-  const enumValues = Object.values(Model);
+  const [model, setModel] = useState<string>(models["gemma2_9b_it"]);
+  
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (inputValue.trim() !== '') {
-      const {messages} = await getGroqResponse(model as Model,[...conversation, { content: inputValue, role: 'user' }]);
+      const {messages} = await getGroqResponse(model,[...conversation, { content: inputValue, role: 'user' }]);
       setConversation(messages);
       setInputValue('');
     }
@@ -42,10 +42,10 @@ export default function ChatBot() {
       </div>
       <div className="bg-background border-t px-6 py-4 flex items-center gap-4">
         <div className="flex flex-wrap gap-2">
-          {enumValues.map(
-              (key) => (
-                <div key={key}>
-                  {key}
+          {Object.keys(models).map(
+              (model, value) => (
+                <div key={model}>
+                  {model}
                 </div>
               )
             )
