@@ -44,7 +44,7 @@ export default function ChatBot() {
           {Object.keys(Model).map((key) => (
             <Button
               key={key}
-              onClick={() => setModel(key as Model)}
+              onClick={() => setModel(Model[key as keyof typeof Model])}
             >
               {key}
             </Button>
