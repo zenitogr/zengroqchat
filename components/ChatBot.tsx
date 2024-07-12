@@ -43,9 +43,9 @@ export default function ChatBot() {
       
       <div className="bg-background border-t px-6 py-2 flex gap-4 fixed bottom-0 inset-x-0">
         <div className="flex flex-col w-full items-center gap-2">
-          <div className="flex flex-row w-full flex-wrap justify-center gap-2">
+          
             <ModelList currentModel={model} setModel={setModel}/>
-          </div>
+          
           <form onSubmit={handleSubmit} className="w-full flex flex-row justify-between gap-4">
             <Input id="message" placeholder="Type your message..." value={inputValue} onChange={handleInputChange} className="flex-1" autoComplete="off" />
             <Button type="submit" size="icon">

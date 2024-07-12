@@ -33,5 +33,5 @@ import {Button} from '@/components/ui/button';
         {model.model}
       </Button>
     );
-    return <div className="flex flex-wrap gap-2">{modelDivs}</div>;
+    return <div className="flex flex-row w-full flex-wrap justify-center gap-2">{modelDivs}</div>;
   }
