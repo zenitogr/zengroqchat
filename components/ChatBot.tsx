@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import  {getGroqResponse, Message } from '@/lib/groq';
+import  {getGroqResponse, Message, Model } from '@/lib/groq';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Input } from './ui/input';
 import { Button } from './ui/button';
@@ -8,10 +8,11 @@ import { SendIcon } from 'lucide-react';
 export default function ChatBot() {
   const [conversation, setConversation] = useState<Message[]>([{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
   const [inputValue, setInputValue] = useState('');
+  const [model, setModel] = useState<Model>(Model.gemma2_9b_it);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (inputValue.trim() !== '') {
-      const {messages} = await getGroqResponse([...conversation, { content: inputValue, role: 'user' }]);
+      const {messages} = await getGroqResponse(model,[...conversation, { content: inputValue, role: 'user' }]);
       setConversation(messages);
       setInputValue('');
     }
@@ -39,6 +40,13 @@ export default function ChatBot() {
         </div>
       </div>
       <div className="bg-background border-t px-6 py-4 flex items-center gap-4">
+        <div className="flex flex-wrap gap-2">
+          {Object.entries(Model).map(([key, value]) => (
+            <Button key={key} onClick={() => setModel(value as Model)}>
+              {key}
+            </Button>
+          ))}
+        </div>
         <form onSubmit={handleSubmit} className="w-full flex flex-row justify-between gap-4">
           <Input id="message" placeholder="Type your message..." value={inputValue} onChange={handleInputChange} className="flex-1" autoComplete="off" />
           <Button type="submit" size="icon">
