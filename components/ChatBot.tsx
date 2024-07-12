@@ -8,7 +8,7 @@ import { SendIcon } from 'lucide-react';
 export default function ChatBot() {
   const [conversation, setConversation] = useState<Message[]>([{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
   const [inputValue, setInputValue] = useState('');
-  const [model, setModel] = useState<string>(models['gemma2_9b_it']);
+  const [model, setModel] = useState<string>('gemma2_9b_it');
   
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -42,10 +42,10 @@ export default function ChatBot() {
       </div>
       <div className="bg-background border-t px-6 py-4 flex items-center gap-4">
         <div className="flex flex-wrap gap-2">
-          {Object.keys(models).map(
-              (key,index) => (
+          {models.map(
+              (entry,index) => (
                 <div key={index}>
-                   {key}
+                   {entry.model}
                 </div>
               )
             )
