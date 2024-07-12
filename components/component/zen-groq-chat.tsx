@@ -23,7 +23,7 @@ import ChatBot from "@/components/ChatBot"
 export function ZenGroqChat() {
   return (
     <div className="flex flex-col h-screen">
-      <header className="bg-primary text-primary-foreground py-4 px-6 flex items-between">
+      <header className="bg-primary text-primary-foreground py-4 px-6 flex justify-between">
         <div className="flex items-center gap-4">
           <Avatar>
             <AvatarImage src="/placeholder-user.jpg" />
