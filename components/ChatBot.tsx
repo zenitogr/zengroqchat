@@ -27,7 +27,7 @@ export default function ChatBot() {
   return (
     <div className="flex flex-col h-screen">
       
-        <div className="space-y-4 overflow-auto flex flex-col-reverse bg-muted/40 px-4 mt-24 mb-32 " style={{overflowAnchor: 'auto'}}>
+        <div className="space-y-4 overflow-auto flex flex-col-reverse bg-muted/40 px-4 mt-20 mb-28 " style={{overflowAnchor: 'auto'}}>
           {conversation.toReversed().map((message, index) => (
             <div key={index} className={`flex items-start gap-4 ${message.role === 'user' ? 'justify-end' : ''}`}>
               <Avatar>
@@ -43,7 +43,9 @@ export default function ChatBot() {
       
       <div className="bg-background border-t px-6 py-2 flex gap-4 fixed bottom-0 inset-x-0">
         <div className="flex flex-col w-full items-center gap-2">
-          <ModelList currentModel={model} setModel={setModel}/>
+          <div className="flex flex-row w-full flex-wrap justify-center gap-2">
+            <ModelList currentModel={model} setModel={setModel}/>
+          </div>
           <form onSubmit={handleSubmit} className="w-full flex flex-row justify-between gap-4">
             <Input id="message" placeholder="Type your message..." value={inputValue} onChange={handleInputChange} className="flex-1" autoComplete="off" />
             <Button type="submit" size="icon">
