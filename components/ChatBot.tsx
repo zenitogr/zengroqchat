@@ -25,9 +25,9 @@ export default function ChatBot() {
   };
 
   return (
-    <div className="flex flex-col h-screen items-center">
+    <div className="flex flex-col  items-center">
       
-        <div className=" overflow-auto flex flex-col-reverse bg-muted/40 px-1 mt-16 mb-24" style={{maxWidth: '1080px',overflowAnchor: 'auto'}}>
+        <div className=" overflow-hidden flex flex-col-reverse bg-muted/40 px-1  mb-24" style={{maxWidth: '1080px',overflowAnchor: 'auto'}}>
           {conversation.toReversed().map((message, index) => (
             <div key={index} className={`flex items-start gap-1 py-1 ${message.role === 'user' ? 'justify-end' : ''}`}>
               <Avatar>
