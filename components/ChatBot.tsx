@@ -31,7 +31,7 @@ export default function ChatBot() {
                 <AvatarImage src="/placeholder-user.jpg" />
                 <AvatarFallback>{message.role === 'user' ? 'JD' : 'VA'}</AvatarFallback>
               </Avatar>
-              <div className={`bg-${message.role === 'user' ? 'card' : 'primary'}-text-foreground rounded-lg p-4 max-w-[75%]`}>
+              <div className={`rounded-lg p-4 max-w-[75%] ${message.role === 'user' ? 'bg-card-text-foreground' : 'bg-primary-text-foreground'}`}>
                 <p>{message.content}</p>
               </div>
             </div>
