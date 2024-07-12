@@ -6,11 +6,8 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { SendIcon } from 'lucide-react';
 export default function ChatBot() {
-  const [messages, setMessages] = useState<{ content: string, role: 'assistant' | 'user' }[]>([]);
+  const [messages, setMessages] = useState<{ content: string, role: 'assistant' | 'user' }[]>([{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
   const [inputValue, setInputValue] = useState('');
-    useEffect(() => {
-        setMessages([...messages,{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
-    }, []);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (inputValue.trim() !== '') {
