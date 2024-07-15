@@ -3,6 +3,7 @@
 import { Manrope } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import './globals.css'
+import React from 'react'
 
 const fontHeading = Manrope({
   subsets: ['latin'],
@@ -16,7 +17,10 @@ const fontBody = Manrope({
   variable: '--font-body',
 })
 
+
+
 export default function Layout({ children }: { children: React.ReactNode }) {
+
   return (
     <html lang="en">
       <body 
@@ -26,7 +30,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           fontBody.variable
         )}
       >
-        {children}
+        <div className="flex flex-col h-screen ">
+          
+          {children}
+        </div>
       </body>
     </html>
   )
