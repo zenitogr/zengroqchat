@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Button } from "./button";
 import { ResponseMethodContext } from "@/lib/groq/response-method";
 
-export default function responseMethodButtons( ) {
+export default function ResponseMethodButtons( ) {
     const {responseMethod, setResponseMethod} = useContext(ResponseMethodContext);
     return (
         <div className="flex flex-row justify-center gap-4">
