@@ -1,16 +1,10 @@
-"use client"
-import ChatBot from '@/components/component/ChatBot';
-import Header from '@/components/component/header';
-import { useState } from 'react';
+
+import ChatBox from '@/components/component/chat-box';
+
 
 export default function Home() {
   
-  const [method,setMethod] = useState('generateText')
-  
   return (
-    <>
-    <Header method={method} setMethod={setMethod}/>
-    <ChatBot method={method} />
-    </>
+    <ChatBox />
   );
 }

@@ -29,7 +29,7 @@ export async function getGroqResponse(model: string, messages: Message[]) {
     ],
   };
 }
-export async function generate(model:string,messages: Message[]) {
+export async function getGroqStreamingResponse(model:string,messages: Message[]) {
   const stream = createStreamableValue();
 
   (async () => {

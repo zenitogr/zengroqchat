@@ -4,6 +4,7 @@ import { Manrope } from 'next/font/google'
 import { cn } from '@/lib/utils'
 import './globals.css'
 import React from 'react'
+import { ResponseMethodProvider }  from '@/lib/groq/response-method'
 
 const fontHeading = Manrope({
   subsets: ['latin'],
@@ -30,10 +31,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           fontBody.variable
         )}
       >
-        <div className="flex flex-col h-screen ">
-          
+        <ResponseMethodProvider>
           {children}
-        </div>
+        </ResponseMethodProvider>
       </body>
     </html>
   )

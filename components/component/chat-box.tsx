@@ -1,42 +1,50 @@
 "use client"
-import React, { useEffect, useState } from 'react';
-import  {getGroqResponse, Message,generate } from '@/lib/groq';
+import React, { useContext, useEffect, useState } from 'react';
+import  {getGroqResponse, Message,getGroqStreamingResponse } from '@/lib/groq/groq-response';
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { SendIcon } from 'lucide-react';
-import ModelList from '@/lib/data/model-list';
+import ModelList from '@/lib/groq/model-list';
 import { readStreamableValue } from 'ai/rsc';
+import { Microphone } from '../ui/mic-button';
+import {ResponseMethodContext} from '@/lib/groq/response-method';
+import ResponseMethodButtons from '../ui/response-method-buttons';
+import NavBar from '@/app/nav-bar';
+
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
-export default function ChatBot({method}: {method:string}) {
+export default function ChatBox() {
   const [conversation, setConversation] = useState<Message[]>([{ content: 'Hello! I am Vercel AI. How can I help you?', role: 'assistant' }]);
   const [inputValue, setInputValue] = useState('');
   const [model, setModel] = useState<string>('gemma-7b-it');
-  
+  const {responseMethod, setResponseMethod} = useContext(ResponseMethodContext);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (inputValue.trim() !== '') {
-      if (method === 'generateText') {
+      if (responseMethod === 'generateText') {
         const {messages} = await getGroqResponse(model,[...conversation, { content: inputValue, role: 'user' }]);
         setConversation(messages);
         setInputValue('');
-      }else{ 
-        const { messages, newMessage } = await generate(model,[
-        ...conversation,
-        { role: 'user', content: inputValue },
-      ]);
-
-      let textContent = '';
-
-      for await (const delta of readStreamableValue(newMessage)) {
-        textContent = `${textContent}${delta}`;
-
-        setConversation([
-          ...messages,
-          { role: 'assistant', content: textContent },
+      }else //responseMethod === 'streamText'
+      { 
+        const { messages, newMessage } = await getGroqStreamingResponse(model,[
+          ...conversation,
+          { role: 'user', content: inputValue },
         ]);
-      }
+        setInputValue('');
+        let textContent = '';
+        
+        for await (const delta of readStreamableValue(newMessage)) {
+          textContent = `${textContent}${delta}`;
+        
+          setConversation([
+            ...messages,
+            { role: 'assistant', content: textContent },
+          ]);
+          
+        }
       }
     }
   };
@@ -48,11 +56,13 @@ export default function ChatBot({method}: {method:string}) {
   return (
     
     
-      <div className="flex flex-col flex-grow items-center overflow-hidden">
-          <div className=" flex flex-col-reverse bg-muted/40 px-1  mb-24 overflow-auto" style={{maxWidth: '1080px',overflowAnchor: 'auto'}}>
+      <div className="  flex flex-col  min-h-screen">
+        <NavBar />
+        <div className="flex-1 overflow-auto">
+          <div className=" flex flex-col-reverse bg-muted/40 px-1 justify-end   w-full flex-1 overflow-auto " style={{overflowAnchor: 'auto'}}>
           
             {conversation.toReversed().map((message, index) => (
-              <div key={index} className={`flex items-start gap-1 py-1 ${message.role === 'user' ? 'justify-end' : ''}`}>
+              <div key={index} className={`flex items-start gap-1 py-1 ${message.role === 'user' ? 'justify-end' : ''} `}>
                 <Avatar>
                   <AvatarImage src="/placeholder-user.jpg" />
                   <AvatarFallback>{message.role === 'user' ? 'JD' : 'VA'}</AvatarFallback>
@@ -64,12 +74,15 @@ export default function ChatBot({method}: {method:string}) {
             ))}
             
           </div>
+        </div>
         
-        <div className="bg-background border-t px-1 py-1 flex gap-1 fixed bottom-0 inset-x-0 w-full flex-shrink-0">
+        <div className="bg-background border-t px-1 py-1 gap-1  sticky bottom-0 z-10 overflow-hidden">
           <div className="flex flex-col w-full items-center gap-1 overflow-hidden">
+            <ResponseMethodButtons />
             <ModelList currentModel={model} setModel={setModel}/>
             <form onSubmit={handleSubmit} className="w-full flex flex-row justify-between gap-1">
               <Input id="message" placeholder="Type your message..." value={inputValue} onChange={handleInputChange} className="flex-1" autoComplete="off" />
+              <Microphone />
               <Button type="submit" size="icon">
                 <SendIcon className="w-4 h-4" />
                 <span className="sr-only">Send</span>
