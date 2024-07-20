@@ -56,8 +56,8 @@ export default function ChatBox() {
   return (
     
     
-      <div className="  flex flex-col  min-h-screen">
-        <NavBar />
+      
+        <>
         <div className="flex-1 overflow-auto">
           <div className=" flex flex-col-reverse bg-muted/40 px-1 justify-end   w-full flex-1 overflow-auto " style={{overflowAnchor: 'auto'}}>
           
@@ -90,7 +90,7 @@ export default function ChatBox() {
             </form>
           </div>
         </div>
-      </div>
+        </>     
     
   );
 }
