@@ -31,7 +31,7 @@ export const useRecordVoice = () => {
 
   const getText = async (base64data: any) => {
     try {
-      const response = await getGroqSpeechToText('recording.mp3', base64data);
+      const response = await getGroqSpeechToText('tmp/recording.mp3', base64data);
       setMicText(response);
     } catch (error) {
       console.log(error);
