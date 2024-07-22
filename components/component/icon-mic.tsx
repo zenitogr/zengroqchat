@@ -21,7 +21,7 @@ To read more about using these font, please visit the Next.js documentation:
 **/
 export function IconMic() {
   return (
-    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary text-primary-foreground">
+    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-primary text-primary-foreground active:bg-red-400" >
       <MicIcon className="w-6 h-6" />
     </div>
   )

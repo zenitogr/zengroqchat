@@ -1,6 +1,6 @@
 "use client";
 
-import { useRecordVoice } from "@/hooks/use-record-voice";
+import { useRecordVoice } from "@/hooks/useRecordVoice";
 import {IconMic} from  "@/components/component/icon-mic";
 
 const Microphone = () => {
@@ -16,6 +16,7 @@ const Microphone = () => {
       className="border-none bg-transparent w-10"
     >
       {/* Microphone icon component */}
+      
       <IconMic />
     </button>
   );

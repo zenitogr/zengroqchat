@@ -10,7 +10,6 @@ import { readStreamableValue } from 'ai/rsc';
 import { Microphone } from '../ui/mic-button';
 import {ResponseMethodContext} from '@/lib/groq/response-method';
 import ResponseMethodButtons from '../ui/response-method-buttons';
-import NavBar from '@/app/nav-bar';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
@@ -19,7 +18,11 @@ export default function ChatBox() {
   const [inputValue, setInputValue] = useState('');
   const [model, setModel] = useState<string>('gemma-7b-it');
   const {responseMethod, setResponseMethod} = useContext(ResponseMethodContext);
+  const {micText, setMicText} = useContext(ResponseMethodContext);
 
+  useEffect (() => {
+    setInputValue(prevValue => prevValue + " " + micText);
+  }, [micText])
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (inputValue.trim() !== '') {
@@ -82,12 +85,15 @@ export default function ChatBox() {
             <ModelList currentModel={model} setModel={setModel}/>
             <form onSubmit={handleSubmit} className="w-full flex flex-row justify-between gap-1">
               <Input id="message" placeholder="Type your message..." value={inputValue} onChange={handleInputChange} className="flex-1" autoComplete="off" />
-              <Microphone />
+              
               <Button type="submit" size="icon">
                 <SendIcon className="w-4 h-4" />
                 <span className="sr-only">Send</span>
               </Button>
             </form>
+            <div className="flex justify-center items-center gap-4">
+            <p>Press and hold to input text using voice:</p><Microphone />
+            </div>
           </div>
         </div>
         </>     
