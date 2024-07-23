@@ -29,9 +29,9 @@ export const useRecordVoice = () => {
     }
   };
 
-  const getText = async (base64data: any) => {
+  const getText = async (audioBlob: Blob) => {
     try {
-      const response = await getGroqSpeechToText('tmp/recording.mp3', base64data);
+      const response = await getGroqSpeechToText(audioBlob);
       setMicText(response);
     } catch (error) {
       console.log(error);
@@ -52,7 +52,8 @@ export const useRecordVoice = () => {
 
     mediaRecorder.onstop = () => {
       const audioBlob = new Blob(chunks.current, { type: "audio/mpeg-3" });
-      blobToBase64(audioBlob, getText);
+      /* blobToBase64(audioBlob, getText); */
+      getText(audioBlob);
     };
 
     setMediaRecorder(mediaRecorder);
