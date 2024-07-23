@@ -35,6 +35,18 @@ import {Button} from '@/components/ui/button';
       model:'whisper-large-v3',
       name:'whisper',
       type: 'audio'
+    },
+    {
+      id:7,
+      model:'llama-3.1-70b-versatile',
+      name:'the-versatile',
+      type: 'text'
+    },
+    {
+      id:8,
+      model:'llama-3.1-8b-instant',
+      name:'the-instant',
+      type: 'text'
     }
   ];
   
