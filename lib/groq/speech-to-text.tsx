@@ -1,15 +1,6 @@
 "use server"
 import Groq from "groq-sdk";
-import { Readable } from "stream";
-import fs from 'fs';
-import { blobToBase64 } from '@/utils/blobToBase64';
-function createStreamFromBase64(base64data: string): Readable {
-  const buffer = Buffer.from(base64data, "base64");
-  const stream = new Readable();
-  stream.push(buffer);
-  stream.push(null); // Signals the end of the stream
-  return stream;
-}
+
 export async function getGroqSpeechToText(audioBlob:Blob) {
     const groq = new Groq({apiKey: process.env.GROQ_API_KEY});
     //create Filelike from audioBlob
