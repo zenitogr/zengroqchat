@@ -78,7 +78,7 @@ export default function ChatBox() {
                 </Avatar>
                 <div className={`rounded-lg p-2 max-w-[75%] ${message.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-primary text-primary-foreground'}`}>
                 
-                <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{message.content}</Markdown>
+                <MarkdownRenderer>{message.content}</MarkdownRenderer>
                 
                 </div>
               </div>
