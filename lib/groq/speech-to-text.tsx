@@ -1,10 +1,14 @@
 "use server"
 import Groq from "groq-sdk";
 
-export async function getGroqSpeechToText(audioBlob:Blob) {
+export async function getGroqSpeechToText(audioBlobString:string) {
+    console.log( audioBlobString );
     const groq = new Groq({apiKey: process.env.GROQ_API_KEY});
     //create Filelike from audioBlob
-    const file = new File([audioBlob], 'audio.mp3', {type: 'audio/mp3'});
+    const parsed = JSON.parse(audioBlobString);
+    const blob = await fetch(parsed.blob).then((res) => res.blob());
+    /* const audioBlob = new Blob([audioBlobString], {type: 'audio/mp3'}); */
+    const file = new File([blob], 'audio.mp3', {type: 'audio/mp3'});
     try {
         const transcription = await groq.audio.transcriptions.create({
             file: file,
