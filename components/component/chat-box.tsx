@@ -14,7 +14,8 @@ import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {dark} from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { MarkdownRenderer } from '@/components/component/mardown';
+import { MarkdownRenderer } from '@/components/component/markdown';
+import rehypeRaw from 'rehype-raw';
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
 
@@ -76,7 +77,9 @@ export default function ChatBox() {
                   <AvatarFallback>{message.role === 'user' ? 'JD' : 'VA'}</AvatarFallback>
                 </Avatar>
                 <div className={`rounded-lg p-2 max-w-[75%] ${message.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-primary text-primary-foreground'}`}>
-                <Markdown remarkPlugins={[remarkGfm]}>{message.content}</Markdown>
+                
+                <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{message.content}</Markdown>
+                
                 </div>
               </div>
             ))}
