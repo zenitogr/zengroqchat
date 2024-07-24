@@ -19,51 +19,191 @@ To read more about using these font, please visit the Next.js documentation:
 **/
 "use client"
 
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
 import { Input } from "@/components/ui/input"
+import { ThemeColorContext } from "@/lib/theme-color"
 
 export function ThemeColorPicker() {
-  const [color, setColor] = useState({ r: 255, g: 255, b: 255, a: 100 })
-  const handleColorChange = (type, value) => {
-    setColor((prevColor) => ({
-      ...prevColor,
+  const {color, setColor}= useContext(ThemeColorContext)
+  const {color2, setColor2} = useContext(ThemeColorContext)
+  const {colorText, setColorText} = useContext(ThemeColorContext)
+  
+  const {colorText2, setColorText2} = useContext(ThemeColorContext)
+  const handleColorChange = (type: string, value: number[] | null | undefined) => {
+    if (value === null || value === undefined) return;
+    setColor({
+      ...color,
       [type]: value,
-    }))
-  }
+    });
+  };
+  
+  const handleColorChange2 = (type: string, value: number[] | null | undefined) => {
+    if (value === null || value === undefined) return;
+    setColor2({
+      ...color2,
+      [type]: value,
+    });
+  };
+  const handleColorChange3 = (type: string, value: number[] | null | undefined) => {
+    if (value === null || value === undefined) return;
+    setColorText({
+      ...colorText,
+      [type]: value,
+    });
+  };
+  
+  const handleColorChange4 = (type: string, value: number[] | null | undefined) => {
+    if (value === null || value === undefined) return;
+    setColorText2({
+      ...colorText2,
+      [type]: value,
+    });
+  };
   return (
-    <div className="bg-background rounded-lg border p-6 w-full max-w-md">
-      <div className="flex flex-col items-center gap-6">
-        <div
-          className="w-32 h-32 rounded-full border-2 border-muted"
-          style={{ backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a / 100})` }}
-        />
-        <div className="grid w-full gap-4">
-          <div className="grid grid-cols-[1fr_200px] items-center gap-4">
-            <Label htmlFor="red">Red</Label>
-            <Slider id="red" value={[color.r]} max={255} onValueChange={(value) => handleColorChange("r", value)} />
+    <div className="flex flex-row gap-4">
+      <div className="bg-background rounded-lg border p-6 w-full max-w-md">
+        <p>color 1</p>
+        <div className="flex flex-col items-center gap-6">
+          <div
+            className="w-32 h-32 rounded-full border-2 border-muted"
+            style={{ backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a / 100})` }}
+          />
+          <div className="grid w-full gap-4">
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="red">Red</Label>
+              <Slider id="red" value={[color.r]} max={255} onValueChange={(value) => handleColorChange("r", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="green">Green</Label>
+              <Slider id="green" value={[color.g]} max={255} onValueChange={(value) => handleColorChange("g", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="blue">Blue</Label>
+              <Slider id="blue" value={[color.b]} max={255} onValueChange={(value) => handleColorChange("b", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="alpha">Alpha</Label>
+              <Slider id="alpha" value={[color.a]} max={100} onValueChange={(value) => handleColorChange("a", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="rgba">RGBA</Label>
+              <Input
+                id="rgba"
+                value={`rgba(${color.r}, ${color.g}, ${color.b}, ${color.a / 100})`}
+                readOnly
+                className="bg-muted"
+              />
+            </div>
           </div>
-          <div className="grid grid-cols-[1fr_200px] items-center gap-4">
-            <Label htmlFor="green">Green</Label>
-            <Slider id="green" value={[color.g]} max={255} onValueChange={(value) => handleColorChange("g", value)} />
+        </div>
+      </div>
+      <div className="bg-background rounded-lg border p-6 w-full max-w-md">
+      <p>color 2</p>
+        <div className="flex flex-col items-center gap-6">
+          <div
+            className="w-32 h-32 rounded-full border-2 border-muted"
+            style={{ backgroundColor: `rgba(${color2.r}, ${color2.g}, ${color2.b}, ${color2.a / 100})` }}
+          />
+          <div className="grid w-full gap-4">
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="red">Red</Label>
+              <Slider id="red" value={[color2.r]} max={255} onValueChange={(value) => handleColorChange2("r", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="green">Green</Label>
+              <Slider id="green" value={[color2.g]} max={255} onValueChange={(value) => handleColorChange2("g", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="blue">Blue</Label>
+              <Slider id="blue" value={[color2.b]} max={255} onValueChange={(value) => handleColorChange2("b", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="alpha">Alpha</Label>
+              <Slider id="alpha" value={[color2.a]} max={100} onValueChange={(value) => handleColorChange2("a", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="rgba">RGBA</Label>
+              <Input
+                id="rgba"
+                value={`rgba(${color2.r}, ${color2.g}, ${color2.b}, ${color2.a / 100})`}
+                readOnly
+                className="bg-muted"
+              />
+            </div>
           </div>
-          <div className="grid grid-cols-[1fr_200px] items-center gap-4">
-            <Label htmlFor="blue">Blue</Label>
-            <Slider id="blue" value={[color.b]} max={255} onValueChange={(value) => handleColorChange("b", value)} />
+        </div>
+      </div>
+      <div className="bg-background rounded-lg border p-6 w-full max-w-md">
+      <p>color text 1</p>
+        <div className="flex flex-col items-center gap-6">
+          <div
+            className="w-32 h-32 rounded-full border-2 border-muted"
+            style={{ backgroundColor: `rgba(${colorText.r}, ${colorText.g}, ${colorText.b}, ${colorText.a / 100})` }}
+          />
+          <div className="grid w-full gap-4">
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="red">Red</Label>
+              <Slider id="red" value={[colorText.r]} max={255} onValueChange={(value) => handleColorChange3("r", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="green">Green</Label>
+              <Slider id="green" value={[colorText.g]} max={255} onValueChange={(value) => handleColorChange3("g", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="blue">Blue</Label>
+              <Slider id="blue" value={[colorText.b]} max={255} onValueChange={(value) => handleColorChange3("b", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="alpha">Alpha</Label>
+              <Slider id="alpha" value={[colorText.a]} max={100} onValueChange={(value) => handleColorChange3("a", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="rgba">RGBA</Label>
+              <Input
+                id="rgba"
+                value={`rgba(${colorText.r}, ${colorText.g}, ${colorText.b}, ${colorText.a / 100})`}
+                readOnly
+                className="bg-muted"
+              />
+            </div>
           </div>
-          <div className="grid grid-cols-[1fr_200px] items-center gap-4">
-            <Label htmlFor="alpha">Alpha</Label>
-            <Slider id="alpha" value={[color.a]} max={100} onValueChange={(value) => handleColorChange("a", value)} />
-          </div>
-          <div className="grid grid-cols-[1fr_200px] items-center gap-4">
-            <Label htmlFor="rgba">RGBA</Label>
-            <Input
-              id="rgba"
-              value={`rgba(${color.r}, ${color.g}, ${color.b}, ${color.a / 100})`}
-              readOnly
-              className="bg-muted"
-            />
+        </div>
+      </div>
+      <div className="bg-background rounded-lg border p-6 w-full max-w-md">
+      <p>color text 2</p>
+        <div className="flex flex-col items-center gap-6">
+          <div
+            className="w-32 h-32 rounded-full border-2 border-muted"
+            style={{ backgroundColor: `rgba(${colorText2.r}, ${colorText2.g}, ${colorText2.b}, ${colorText2.a / 100})` }}
+          />
+          <div className="grid w-full gap-4">
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="red">Red</Label>
+              <Slider id="red" value={[colorText2.r]} max={255} onValueChange={(value) => handleColorChange4("r", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="green">Green</Label>
+              <Slider id="green" value={[colorText2.g]} max={255} onValueChange={(value) => handleColorChange4("g", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="blue">Blue</Label>
+              <Slider id="blue" value={[colorText2.b]} max={255} onValueChange={(value) => handleColorChange4("b", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="alpha">Alpha</Label>
+              <Slider id="alpha" value={[colorText2.a]} max={100} onValueChange={(value) => handleColorChange4("a", value)} />
+            </div>
+            <div className="grid grid-cols-[1fr_200px] items-center gap-4">
+              <Label htmlFor="rgba">RGBA</Label>
+              <Input
+                id="rgba"
+                value={`rgba(${colorText2.r}, ${colorText2.g}, ${colorText2.b}, ${colorText2.a / 100})`}
+                readOnly
+                className="bg-muted"
+              />
+            </div>
           </div>
         </div>
       </div>

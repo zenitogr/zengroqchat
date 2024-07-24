@@ -13,7 +13,7 @@ const Microphone = () => {
       onMouseUp={stopRecording}        // Stop recording when mouse is released
       onTouchStart={startRecording}    // Start recording when touch begins on a touch device
       onTouchEnd={stopRecording}        // Stop recording when touch ends on a touch device
-      className="border-none bg-transparent w-10"
+      className="border-none bg-transparent w-10 "
     >
       {/* Microphone icon component */}
       

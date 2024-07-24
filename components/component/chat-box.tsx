@@ -16,6 +16,7 @@ import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {dark} from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { MarkdownRenderer } from '@/components/component/markdown';
 import rehypeRaw from 'rehype-raw';
+import { ThemeColorContext  } from "@/lib/theme-color";
 export const dynamic = 'force-dynamic';
 export const maxDuration = 30;
 
@@ -25,7 +26,12 @@ export default function ChatBox() {
   const [model, setModel] = useState<string>('gemma-7b-it');
   const {responseMethod, setResponseMethod} = useContext(ResponseMethodContext);
   const {micText, setMicText} = useContext(ResponseMethodContext);
-
+  
+  const {color, setColor} = useContext(ThemeColorContext);
+  const {color2, setColor2} = useContext(ThemeColorContext);
+  const {colorText, setColorText} = useContext(ThemeColorContext);
+  const {colorText2, setColorText2} = useContext(ThemeColorContext);
+  
   useEffect (() => {
     setInputValue(prevValue => prevValue + " " + micText);
   }, [micText])
@@ -76,7 +82,7 @@ export default function ChatBox() {
                   <AvatarImage src="/placeholder-user.jpg" />
                   <AvatarFallback>{message.role === 'user' ? 'JD' : 'VA'}</AvatarFallback>
                 </Avatar>
-                <div className={`rounded-lg p-2 max-w-[75%] ${message.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-primary text-primary-foreground'}`}>
+                <div className={`rounded-lg p-2 max-w-[75%]}`} style={{backgroundColor: `rgba(${color?.r ?? 0}, ${color?.g ?? 0}, ${color?.b ?? 0}, ${color?.a/100 ?? 0})`,color: `rgba(${colorText?.r ?? 0}, ${colorText?.g ?? 0}, ${colorText?.b ?? 0}, ${colorText?.a/100 ?? 0})`}}>
                 
                 <MarkdownRenderer>{message.content}</MarkdownRenderer>
                 
@@ -88,18 +94,18 @@ export default function ChatBox() {
         </div>
         
         <div className="bg-background border-t px-1 py-1 gap-1  sticky bottom-0 z-10 overflow-hidden">
-          <div className="flex flex-col w-full items-center gap-1 overflow-hidden">
+          <div className="flex flex-col w-full items-center gap-1 overflow-hidden" style={{backgroundColor: `rgba(${color2?.r ?? 0}, ${color2?.g ?? 0}, ${color2?.b ?? 0}, ${color2?.a/100 ?? 0})`,color: `rgba(${colorText2?.r ?? 0}, ${colorText2?.g ?? 0}, ${colorText2?.b ?? 0}, ${colorText2?.a/100 ?? 0})`}}>
             <ResponseMethodButtons />
             <ModelList currentModel={model} setModel={setModel}/>
             <form onSubmit={handleSubmit} className="w-full flex flex-row justify-between gap-1">
               <Input id="message" placeholder="Type your message..." value={inputValue} onChange={handleInputChange} className="flex-1" autoComplete="off" />
               
-              <Button type="submit" size="icon">
+              <Button type="submit" size="icon" style={{backgroundColor: `rgba(${color?.r ?? 0}, ${color?.g ?? 0}, ${color?.b ?? 0}, ${color?.a/100 ?? 0})`,color: `rgba(${colorText?.r ?? 0}, ${colorText?.g ?? 0}, ${colorText?.b ?? 0}, ${colorText?.a/100 ?? 0})`}}>
                 <SendIcon className="w-4 h-4" />
                 <span className="sr-only">Send</span>
               </Button>
             </form>
-            <div className="flex justify-center items-center gap-4">
+            <div className="flex justify-center items-center gap-4" >
             <p>Press and hold to input text using voice:</p><Microphone />
             </div>
           </div>

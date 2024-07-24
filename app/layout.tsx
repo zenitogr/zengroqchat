@@ -6,6 +6,7 @@ import './globals.css'
 import React from 'react'
 import { ResponseMethodProvider }  from '@/lib/groq/response-method'
 import NavBar from './nav-bar'
+import { ThemeColorProvider } from '@/lib/theme-color'
 
 const fontHeading = Manrope({
   subsets: ['latin'],
@@ -33,10 +34,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         )}
       >
         <ResponseMethodProvider>
+        <ThemeColorProvider>
         <div className="  flex flex-col  min-h-screen">
         <NavBar />
           {children}
         </div>
+        </ThemeColorProvider>
         </ResponseMethodProvider>
       </body>
     </html>

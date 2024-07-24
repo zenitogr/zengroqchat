@@ -1,4 +1,6 @@
 import {Button} from '@/components/ui/button';
+import { useContext } from 'react';
+import { ThemeColorContext } from '../theme-color';
   export const models =  [
     {
       id : 1,
@@ -51,13 +53,25 @@ import {Button} from '@/components/ui/button';
   ];
   
   export default function ModelList({currentModel,setModel}: {currentModel:string,setModel: (model: string) => void}) {
+    const {color, setColor} = useContext(ThemeColorContext);
+  const {color2, setColor2} = useContext(ThemeColorContext);
+  const {colorText, setColorText} = useContext(ThemeColorContext);
+  const {colorText2, setColorText2} = useContext(ThemeColorContext);
     const modelDivs = models.map(model => {
     
       if (model.type === 'text') {
       return <Button
         key={model.id}
         onClick={() => setModel(model.model)}
-        className={currentModel === model.model ? 'bg-primary text-primary-foreground flex-1' : 'bg-background text-foreground flex-1'}
+        className="flex-1"
+        style=
+        {currentModel === model.model 
+          ?
+           {backgroundColor: `rgba(${color?.r ?? 0}, ${color?.g ?? 0}, ${color?.b ?? 0}, ${color?.a/100 ?? 0})`,
+           color: `rgba(${colorText?.r ?? 0}, ${colorText?.g ?? 0}, ${colorText?.b ?? 0}, ${colorText?.a/100 ?? 0})`}
+           :
+            {backgroundColor: `rgba(${color2?.r ?? 0}, ${color2?.g ?? 0}, ${color2?.b ?? 0}, ${color2?.a/100 ?? 0})`,
+            color: `rgba(${colorText2?.r ?? 0}, ${colorText2?.g ?? 0}, ${colorText2?.b ?? 0}, ${colorText2?.a/100 ?? 0})`}}
       >
         {model.name}
       </Button>
